@@ -1,0 +1,27 @@
+// Place all the styles related to the InstructorView controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+html {
+  text-align: center;
+  min-height: 100vh;
+}
+body {
+    margin: 0;
+    background: radial-gradient(aqua, lightgrey);
+}
+.center{
+  text-align: center;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+table, th, td {
+  margin: auto;
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #F69BBB;
+}

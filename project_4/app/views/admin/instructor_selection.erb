@@ -1,0 +1,8 @@
+
+<%= form_tag("/admin/select_instructor", method: "post",multipart:true,enforce_utf8:true) do %>
+    <%= "Instructor for class #{@mclass.section} (CSE #{@mclass.number})"%>
+    <%= label_tag(:class_id, "Instructors:") %>
+    <%= hidden_field_tag "mclass_id", "#{@mclass.id}" %>
+    <%= collection_select(:data, :class_id, User.where("role = 'instructor'").map{|a| [a.username, a.id]}, :second, :first, {:include_blank => 'None', :selected => @user }) %>
+    <%= submit_tag("Update") %>
+<%end%>

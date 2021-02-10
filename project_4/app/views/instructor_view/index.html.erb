@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<h1>Instructor View</h1>
+<body>
+  <table style="width:70%">
+    <thead>
+      <tr>
+        <th>Student name.#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Class IDs</th>
+        <th>Taken Course IDs</th>
+        <th>Resume</th>
+        <th>Advisor Report</th>
+        <th>Days/Times</th>
+        <th colspan="10"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @applications.each do |app| %>
+        <tr>
+          <% @student_id = findProfile(app.profile_id).identity %>
+          <td><%= findProfile(app.profile_id).identity %></td>
+          <td><%= findProfile(app.profile_id).firstName %></td>
+          <td><%= findProfile(app.profile_id).lastName %></td>
+          <% if app.class_ids.count > 0 %>
+            <td><%= app.class_ids %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <% if app.taken_course_ids.count > 0 %>
+            <td><%= app.taken_course_ids %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <!-- Only show resume download link if exists -->
+          <% if app.resume %>
+            <td><a href="data:application/octet-stream;base64,<%= Base64.encode64 app.resume %>" download="resume.pdf">Resume</a> </td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+          <!-- Only show report download link if exists -->
+          <% if app.advisor_report %>
+            <td><a href="data:application/octet-stream;base64,<%= Base64.encode64 app.advisor_report %>" download="advisor_report.pdf">Advisor Report</a></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <% if app.days_times %>
+            <td><%= formatAvailability(app.days_times) %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <td>
+            <% if !RecommendationForm.where(instructor_id: @currentUsername, application_id: @student_id).empty? %>
+              <!-- If the recommendation exists -->
+              <a href="/recommendation_forms/?username=<%= current_user.username %>">View Recommendations</a>
+            <% else %>
+              <!-- Recommendation does not exist so add -->
+              <a href="/recommendation_forms/new?username=<%= findProfile(app.profile_id).identity%>">Add Recommendations</a>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+
+<% if current_user %>
+  Logged in as <%= current_user.username %>
+<% else %>
+	
+    <h1>Welcome to Project 4 Interface</h1>
+    <br>
+    <h3>Login/signup to view the courses listing.</h3>
+
+    
+  	 <%= link_to "Student Sign Up", signup_path,:class => "button button4" %>
+  	 <%= link_to "Instructor Sign Up", signupinstr_path,:class => "button button2" %> 
+  	 <%= link_to "Log In", login_path,:class => "button button3" %>
+  
+
+
+
+<% end %>
+<p id="notice"><%= notice %></p>

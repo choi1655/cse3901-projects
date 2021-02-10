@@ -1,0 +1,19 @@
+<table style="width:70%">
+    <thead>
+      <tr>
+        <th>Instructor</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @recs.each do |rec| %>
+        <tr>
+          <td><%= rec.instructor_id %></td>
+          <td><%= rec.content %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Back'.html_safe, :controller => 'admin', :action => 'applications' %> 

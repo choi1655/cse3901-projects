@@ -1,0 +1,56 @@
+
+<div class="center">
+
+<h1>Welcome to project 3!</h1>
+
+<h3>Computer Science and Engineering Course Listing</h3>
+
+
+
+<%= form_tag courses_path, :method => "get" do %>
+   <p>Search by: Course#/Section#/Instructors<p>
+   <%= text_field_tag :number, params[:number] %>
+   <%= text_field_tag :section, params[:section] %>
+   <%= text_field_tag :instructors, params[:instructors] %>
+   <br>
+   <br>
+   <%= submit_tag("Search", :name => nil) %>
+<% end %>
+
+<%= link_to 'Reset', courses_path %>
+
+<br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Course Number</th>
+      <th>Section</th>
+      <th>Days</th>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Enrolled/Limit</th>
+      <th>Waitlist</th>
+      <th>Instructors</th>
+      <th>Campus</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td>CSE <%= course.number %></td>
+        <td><%= course.section %></td>
+        <td><%= course.days %></td>
+        <td><%= convert_time course.time %></td>
+        <td><%= course.location %></td>
+        <td><%= course.enrolled %><span>&#47</span><%= course.limit %></td>
+        <td><%= course.waitlist %></td>
+        <td><%= course.instructors %></td>
+        <td><%= course.campus %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>

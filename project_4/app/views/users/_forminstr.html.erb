@@ -1,0 +1,17 @@
+<%# Displays any alert messages if issues with creating user. %>
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+<%= form_with(model: user, local: true) do |form| %>
+  <%# Format to create a new user. %>
+  <div class="field">
+    <%= form.label "Instructor ID" %>
+    <%= form.text_field :username %>
+  </div>
+  
+  <button type="submit" class="button1"> Save </button>
+  <%= link_to "Back", root_path, :class => "button button2" %>
+<% end %>

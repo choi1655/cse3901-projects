@@ -1,0 +1,24 @@
+<%= form_with(model: recommendation_form, local: true) do |form| %>
+  <% if recommendation_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recommendation_form.errors.count, "error") %> prohibited this recommendation_form from being saved:</h2>
+
+      <ul>
+        <% recommendation_form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content, :size=>"100", placeholder: "Type in comment..." %>
+  </div>
+
+  <% hidden_field_tag 'application_id', params[:application_id] %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

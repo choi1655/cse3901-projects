@@ -1,0 +1,8 @@
+<%= form_tag("/admin/assign_student", method: "post",multipart:true,enforce_utf8:true) do %>
+    <%= "Assignment for student #{@student}"%>
+    <%= label_tag(:class_id, "Class/Section ids:") %>
+    <%= hidden_field_tag "student", "#{@student}" %>
+    <%= collection_select(:data, :class_id, Mclass.all.map{|a| ["CSE #{a.number}/#{a.section}", a.id]}, :second, :first, {:include_blank => 'None', :selected => @selected_class_id }) %>
+    <%= submit_tag("Update") %>
+<%end%>
+<%= link_to 'Back'.html_safe, :controller => 'admin', :action => 'applications' %> 

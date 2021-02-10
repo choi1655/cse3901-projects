@@ -1,0 +1,45 @@
+<% instructors = Instructor.all %>
+
+<h1>Admin#classes</h1>
+
+<h3>Class Listing</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Number</th>
+      <th>Section</th>
+      <th>Days</th>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Enrolled/Limit</th>
+      <th>Waitlist</th>
+      <th>Instructors</th>
+      <th>Select Instructor</th>
+      <th>Campus</th>
+      <th>Needs Graders</th>
+      </tr>
+      </thead>
+
+  <tbody>
+    <% @classes.each do |mclass| %>
+      <tr>
+        <td>CSE <%= mclass.number %></td>
+        <td><%= mclass.section %></td>
+        <td><%= mclass.days %></td>
+        <td><%= convert_time mclass.time %></td>
+        <td><%= mclass.location %></td>
+        <td><%= mclass.enrolled %><span>&#47</span><%= mclass.limit %></td>
+        <td><%= mclass.waitlist %></td>
+        <td><%= mclass.instructor %></td>
+        <td><%= instructors.filter{|a| a.class_num.to_i() == mclass.number && a.class_section.to_i() == mclass.section}.map{|a| a.profile_id + ", "}.join('') %><a href="/admin/instructor_selection/?class_id=<%= mclass.id %>">Add User</a></td>
+        <td><%= mclass.campus %></td>
+        <% if mclass.need_grader %>
+        <td><%= button_to "X", action: "requires_graders", data: {id: mclass.id } %></td>
+        <% else %>
+        <td><%= button_to " ", action: "requires_graders", data: {id: mclass.id } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  section: 1
+  days: MyString
+  time: MyString
+  location: MyString
+  enrolled: 1
+  limit: 1
+  waitlist: 1
+  instructor: MyString
+  campus: MyString
+  need_grader: false
+
+two:
+  number: 1
+  section: 1
+  days: MyString
+  time: MyString
+  location: MyString
+  enrolled: 1
+  limit: 1
+  waitlist: 1
+  instructor: MyString
+  campus: MyString
+  need_grader: false

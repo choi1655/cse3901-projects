@@ -1,0 +1,76 @@
+<%= form_tag "/admin/applications", :method => "get" do %>
+   <p>Search by: student name.#<p>
+   <%= text_field_tag :student_id, params[:student_id] %>
+   <br>
+   <br>
+   <%= submit_tag("Search", :name => nil) %>
+<% end %>
+
+<%= link_to 'Reset', :controller => 'admin', :action => 'applications' %>
+
+<table style="width:70%">
+    <thead>
+      <tr>
+        <th>Student name.#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Class IDs</th>
+        <th>Taken Course IDs</th>
+        <th>Resume</th>
+        <th>Advisor Report</th>
+        <th>Days/Times</th>
+        <th>Recommendations</th>
+        <th>Assign</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @apps.each do |app| %>
+        <tr>
+          <% @student_id = findProfile(app.profile_id).identity %>
+          <td><%= findProfile(app.profile_id).identity %></td>
+          <td><%= findProfile(app.profile_id).firstName %></td>
+          <td><%= findProfile(app.profile_id).lastName %></td>
+          <% if app.class_ids.count > 0 %>
+            <td><%= app.class_ids %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <% if app.taken_course_ids.count > 0 %>
+            <td><%= app.taken_course_ids %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <!-- Only show resume download link if exists -->
+          <% if app.resume %>
+            <td><a href="data:application/octet-stream;base64,<%= Base64.encode64 app.resume %>" download="resume.pdf">Resume</a> </td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+          <!-- Only show report download link if exists -->
+          <% if app.advisor_report %>
+            <td><a href="data:application/octet-stream;base64,<%= Base64.encode64 app.advisor_report %>" download="advisor_report.pdf">Advisor Report</a></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+
+          <% if app.days_times %>
+            <td><%= formatAvailability(app.days_times) %></td>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+          <td>
+            <a href="/admin/rec/?student=<%= findProfile(app.profile_id).identity %>">View</a>
+          <td>
+            <% unless Assignment.where(profile_id: findProfile(app.profile_id).identity).empty? %>
+            <% mclass = Mclass.find(Assignment.where(profile_id: findProfile(app.profile_id).identity).first.class_id)%>
+              <%= "Assigned to #{mclass.number}/#{mclass.section}" %>
+            <% end %>
+            <a href="/admin/assign_student/?student=<%= findProfile(app.profile_id).identity %>">Assign to class</a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

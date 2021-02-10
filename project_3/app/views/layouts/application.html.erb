@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project3</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <br>
+
+    <% if logged_in? %>
+      <h3>You are authorized to view the courses listing page.</h3>
+      <br>
+      <%= link_to 'View Courses', courses_path %>
+      <br>
+      <br>
+      <%= button_to "Logout", sessions_path, method: :delete %>
+    <% end %>
+    
+  </body>
+</html>

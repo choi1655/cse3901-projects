@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="gos">
+
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="src/Gos.js"></script>
+
+<body>
+    <div ng-controller="gameCtrl">
+        <div class="page-title">
+            <h1>{{gos}}<h1>
+                    <button class="button1" ng-click="shuffle()">Shuffle</button>
+                    <button class="button2" ng-click="hint()">Hint</button>
+                    <button class="button3" ng-click="reload()">Replay</button>
+        </div>
+        <div class="game-container">
+            <div class="game-info-container">
+                <div class="game-info">
+                    Score <span id="current-score">{{score}}</span>
+                </div>
+                <div class="game-info">
+                    Deck <span id="current-score">{{deck_left}}</span>
+                </div>
+                <div class="game-info">
+                    Time <span id="current-time">{{time|date:'mm:ss'}}</span>
+                </div>
+            </div>
+            <div ng-repeat="card in field" style="margin-top: 5px;">
+                <img ng-click="imageClicked($index)" ng-src="{{card.image()}}"
+                    ng-style="{'float': 'left', 'border' : cardStyle(card)}">
+            </div>
+
+            <div>
+                <h3>{{text}}<h3>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

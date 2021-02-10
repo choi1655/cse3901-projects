@@ -1,0 +1,10 @@
+<% if current_user %>
+  Logged in as <%= current_user.email %>
+<% else %>
+    <h1>Welcome to Project3.</h1>
+    <br>
+    <h3>Login/signup to view the courses listing.</h3>
+  <%= link_to "Sign Up", signup_path %> or 
+  <%= link_to "Log In", login_path %>
+<% end %>
+<p id="notice"><%= notice %></p>

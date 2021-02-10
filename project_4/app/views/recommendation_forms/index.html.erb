@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recommendation Forms</h1>
+
+<table style="width:70%">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>Student</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% student_id = "" %>
+    <% @recommendation_forms.each do |recommendation_form| %>
+      <tr>
+        <td><%= recommendation_form.instructor_id %></td>
+        <td><%= recommendation_form.application_id %></td>
+        <td><%= recommendation_form.content %></td>
+        <% student_id = recommendation_form.application_id %>
+        <td><%= link_to 'Show', recommendation_form %></td>
+        <td><%= link_to 'Edit', edit_recommendation_form_path(recommendation_form) %></td>
+        <td><%= link_to 'Delete', recommendation_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% currentUsername = params[:username] %>
+<% if RecommendationForm.where(instructor_id: currentUsername, application_id: student_id).empty? %>
+<% end %>
+<a href="/instructor_view/index/"> Back to Instructor View</a>

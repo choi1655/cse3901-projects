@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Submitted by Instructor:</strong>
+  <%= @recommendation_form.instructor_id %>
+</p>
+
+<p>
+  <strong>Student name.#:</strong>
+  <%= @recommendation_form.application_id %>
+</p>
+
+<p>
+  <strong>Recommendation Comments:</strong>
+  <%= @recommendation_form.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_recommendation_form_path(@recommendation_form) %> |
+<a href="/instructor_view/index/"> Back to Instructor View</a>

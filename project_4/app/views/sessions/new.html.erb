@@ -1,0 +1,33 @@
+
+<%# display any alerts if errors with login. %>
+
+
+<%# Format for login page.%>
+<h1>Login</h1>
+  <% flash.each do |type, msg| %>
+    <div>
+     <%= msg %>
+    </div>
+  <% end %>
+  <%= form_tag sessions_path do |form| %>
+
+
+  <div class="container">
+    <div class="field">
+      <%= label_tag "UserName" %>
+     <%= text_field_tag :username %>
+    </div>
+    <div class="field">
+      <%= label_tag "Password"%>
+      <%= password_field_tag :password %>
+    </div>
+  </div>
+  <button type="submit" class="button1"> Login </button>
+
+  <%= link_to "Back", root_path, :class => "button button2" %>
+ 
+  <% end %>
+ 
+
+
+

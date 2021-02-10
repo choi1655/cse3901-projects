@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project4</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <% if logged_in? %>
+        <%= link_to "Logout", sessions_path, method: :delete, :class => "button button3" %> 
+        <%= link_to "Change Password", newpassword_path,:class => "button button2" %> 
+        <%= link_to "Home", home_path, :class => "button button4" %>
+      <%end%>
+      
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

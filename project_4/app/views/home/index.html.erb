@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<h1>Welcome to grader portal app!</h1>
+<body>
+    <% if @role == "admin" %>
+      <%= link_to 'User control'.html_safe, :controller => 'admin', :action => 'users' %>
+      <%= link_to 'Instructor/class managment'.html_safe, :controller => 'admin', :action => 'classes' %> 
+      <%= link_to 'Approve applications'.html_safe, :controller => 'admin', :action => 'applications' %> 
+    <% elsif @role == "student" %>
+      <%= link_to 'Application submission'.html_safe, :controller => 'student_application', :action => 'index' %> 
+    <% else @role == "instructor" %>
+      <%= link_to 'View applications'.html_safe, :controller => 'instructor_view', :action => 'index' %> 
+    <% end %>
+</body>
+</html>

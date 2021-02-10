@@ -1,0 +1,38 @@
+<h1>Student Application</h1>
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+<% end -%>
+<% days_tims= @student.days_times %>
+<%= form_tag("/student_application", method: "post",multipart:true,enforce_utf8:true) do %>
+  <table>
+    <tr><th><%= label_tag(:class_ids, "Classes:") %></th><th><%= collection_select(:person, :class_ids, @mclass, :number, :number,{:prompt=>true,:selected=>@student.class_ids},{:multiple => true,:required=>true }) %></th></tr>
+    <tr><th><%= label_tag(:taken_course_ids, "Taken Courses:") %></th><th><%= collection_select(:person, :taken_course_ids, Course::all, :number, :title,{:prompt=>true,:selected=>@student.taken_course_ids},{:multiple => true,:required=>true }) %>
+    </th></tr>
+    <tr><th><label>Resume:</label></th><th><%= file_field_tag(:resume,accept: 'application/pdf') %>
+    <% if @student.resume %>
+      <a href="data:application/octet-stream;base64,<%= Base64.encode64 @student.resume %>" download="resume.pdf">Download</a>
+    <% end %>
+    </th></tr>
+    <tr><th><label>Advisor Report:</label></th><th><%= file_field_tag(:advisor_report,accept: 'application/pdf') %>
+    <% if @student.advisor_report %>
+      <a href="data:application/octet-stream;base64,<%= Base64.encode64 @student.advisor_report %>" download="advisor_report.pdf">Download</a>
+    <% end %>
+    </th></tr>
+    <tr><th>5-Day Weekly Planner</th><th><table>
+      <tr><td></td>
+        <% @weeks.each do |item,value| %>
+        <td><%= value %></td>
+        <% end %>
+        </tr>
+      <% for  i in 8..19 %>
+      <tr>
+        <td><%= i %>:00</td>
+        <% @weeks.each do |item,value| %>
+          <td><input type="checkbox" value="<%= i %>" name="times[<%= item %>][]"  <% if !days_tims.nil? && !days_tims[item.to_s].nil? %><%if days_tims[item.to_s].include?(i.to_s) %> checked <% end %><% end %>></td>
+        <% end %>
+      </tr>
+      <%  end %>
+    </table></th></tr>
+    <tr><th colspan="2"><%= submit_tag("Update") %></th></tr>
+  </table>
+<% end %>

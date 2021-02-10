@@ -1,0 +1,2 @@
+class RecommendationForm < ApplicationRecord
+end
